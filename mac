@@ -1,0 +1,22 @@
+import subprocess
+import optparse
+def get_user_input():
+    parse_object = optparse.OptionParser()
+    parse_object.add_option("-i","--interface",dest="user_interface",help="interface to change!")
+    parse_object.add_option("-m","--mac",dest="user_mac_address",help="mac to change")
+
+    return parse_object.parse_args()
+
+def mac_address_changer(interface,mac_address):
+    subprocess.call(["ifconfig", interface, "down"])
+    subprocess.call(["ifconfig", interface, "hw", "ether",mac_address])
+    subprocess.call(["ifconfig", interface, "up"])
+
+def control(user_interface):
+    ifconfig = subprocess.check_output("ifconfig","user_interface")
+    print(ifconfig)
+
+print("My MaChanger Started")
+(user_inputs,arguments) = get_user_input()
+mac_address_changer(user_inputs.user_interface,user_inputs.user_mac_address)
+control(user_inputs.user_interface)
